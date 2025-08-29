@@ -18,7 +18,7 @@ function Home() {
     const cartItem = useSelector((state) => state.cart);
     const dispatch = useDispatch()
 
-    const subTotal = cartItem.reduce((total, cart) => total + cart.price, 0);
+    const subTotal = cartItem.reduce((total, cart) => total + (cart.price * cart.qty), 0);
     const deliveryFee = 20;
     const tax = Number((subTotal * 0.12).toFixed(2));
     const grandTotal = (subTotal + deliveryFee + tax).toFixed(2);

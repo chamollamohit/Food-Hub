@@ -38,7 +38,7 @@ function Cart({ data }) {
                 </div>
             </div>
             <div className="flex flex-col gap-10 items-center mr-2 font-semibold ">
-                <div>Rs {data.price}/-</div>
+                <div>Rs {data.price * data.qty}/-</div>
                 <div>
                     <Trash2
                         color="red"
