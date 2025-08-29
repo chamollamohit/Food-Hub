@@ -2,9 +2,11 @@ import React, { useContext, useEffect } from "react";
 import { Salad, ShoppingBag } from "lucide-react";
 import { catgData } from "../Context/SearchContext";
 import { food_items } from "../food";
+import { useSelector } from "react-redux";
 function Nav() {
 
-    const { input, setInput, setCatg } = useContext(catgData);
+    const cartItem = useSelector((state) => state.cart);
+    const { showCart, setShowCart, input, setInput, setCatg } = useContext(catgData);
     useEffect(() => {
         const newList = food_items.filter(
             (item) =>
@@ -14,7 +16,7 @@ function Nav() {
     },[input])
     
     return (
-        <div className=" fixed w-full h-[100px] flex flex-row justify-between items-center px-8 py-3  z-50">
+        <div className=" fixed w-full h-[100px] flex flex-row justify-between items-center px-8 py-3 z-10">
             <div className="w-[65px] h-[65px] bg-[#F1F0E8] rounded-xl flex justify-center items-center drop-shadow-xl">
                 <Salad size={50} />
             </div>
@@ -51,11 +53,18 @@ function Nav() {
                 </label>
             </form>
 
-            <div className="w-[65px] h-[65px] bg-[#F1F0E8] rounded-xl flex justify-center items-center drop-shadow-xl relative">
-                <span className="absolute top-0 right-1 font-semibold bg-red-500 rounded-100 rounded-full px-1 ">
-                    0
-                </span>
-                <ShoppingBag size={45} />
+            <div
+                className=" w-[65px] h-[65px] bg-[#F1F0E8] rounded-xl flex justify-center items-center drop-shadow-xl"
+                onClick={() => {
+                    setShowCart((prev) => !prev);
+                }}
+            >
+                {cartItem.length >1 ? <span className="indicator-item badge bg-amber-200 absolute top-0 right-1 font-semibold">
+                    {cartItem.length}
+                </span> : null}
+                <div className="bg-base-300 grid">
+                    <ShoppingBag size={45} />
+                </div>
             </div>
         </div>
     );
